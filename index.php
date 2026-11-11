@@ -1,9 +1,9 @@
-
+﻿
 <?php
 // Buku tamu (aplikasi acuan P5 sampai Tugas Besar): PHP + PDO + PostgreSQL.
 // Konfigurasi dari environment variable DATABASE_URL (P5 slide 24).
 const PEMILIK = "24161562030 - LIA HIKMATUL MAULA";
-const VERSI = "1.0";
+const VERSI = "1.1";
 
 // DATABASE_URL = postgresql://user:pass@host:5432/db?sslmode=require
 function db(int $timeout = 5): PDO {
@@ -53,12 +53,12 @@ if ($path === "/healthz") {
     $sql = "SELECT nama, waktu FROM tamu ORDER BY id DESC LIMIT 20";
     $rows = db()->query($sql)->fetchAll();
     echo "<h1>Buku tamu " . htmlspecialchars(PEMILIK) . "</h1>";
-    echo "<p>versi " . VERSI . " · server " . gethostname() . "</p>";
+    echo "<p>versi " . VERSI . " Â· server " . gethostname() . "</p>";
     echo '<form method="post" action="/tamu"><input name="nama" required>';
     echo '<button>Simpan</button></form><ul>';
     foreach ($rows as $r) {
         $waktu = date("d-m H:i", strtotime($r["waktu"]));
-        echo "<li>" . htmlspecialchars($r["nama"]) . " · $waktu</li>";
+        echo "<li>" . htmlspecialchars($r["nama"]) . " Â· $waktu</li>";
     }
     echo "</ul>";
 } else {

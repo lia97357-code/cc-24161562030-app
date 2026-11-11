@@ -1,0 +1,10 @@
+.git
+.env
+*.sql
+*.dump
+*.tfstate*
+vendor/
+docs/
+docker-compose.yml
+# manifest Kubernetes P8 (latihan)
+k8s/

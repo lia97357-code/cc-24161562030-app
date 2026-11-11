@@ -1,3 +1,11 @@
+# tahap 1: pasang dependensi PHP dengan Composer
+FROM composer:2 AS vendor
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --no-interaction \
+      --prefer-dist --optimize-autoloader
+
+# tahap 2: image akhir yang dijalankan
 FROM php:8.4-apache
 
 RUN apt-get update && apt-get install -y libpq-dev \
@@ -12,4 +20,5 @@ RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
 
 EXPOSE 8080
 
+COPY --from=vendor /app/vendor /var/www/html/vendor
 COPY . /var/www/html
